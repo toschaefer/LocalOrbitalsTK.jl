@@ -1,0 +1,13 @@
+name = "LocalOrbitalsTK"
+uuid = "7de6f47c-28f8-40ce-86a5-cf78ddfa80b7"
+authors = ["Tobias Schäfer"]
+version = "0.1.0-DEV"
+
+[compat]
+julia = "1.12"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
