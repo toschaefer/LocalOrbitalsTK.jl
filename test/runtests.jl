@@ -1,6 +1,9 @@
-using LocalOrbitalsTK
 using Test
+using Aqua
+using LocalOrbitalsTK
 
 @testset "LocalOrbitalsTK.jl" begin
-    # Write your tests here.
+    @testset "Code quality (Aqua)" begin
+        Aqua.test_all(LocalOrbitalsTK)   # unbound args, stale deps, missing compat, ambiguities, ...
+    end
 end
