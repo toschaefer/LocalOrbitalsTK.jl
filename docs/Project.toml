@@ -1,0 +1,9 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+OrbitalRotationsTK = "7de6f47c-28f8-40ce-86a5-cf78ddfa80b7"
+
+[sources]
+OrbitalRotationsTK = {path = ".."}
+
+[compat]
+Documenter = "1"
