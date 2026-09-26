@@ -1,5 +1,6 @@
 """
-Result of [`rotate`](@ref): the optimal unitary `U`, the rotated orbitals `ψ`, and convergence info.
+Result of [`rotate`](@ref): the optimal unitary `U`, the rotated orbitals `ψ`, and
+convergence information.
 """
 struct RotationResult{TU,Tψ,TF,TR}
     U::TU
@@ -13,29 +14,21 @@ end
 
 
 """
-   rotate(
-       basis, 
-       ψ, 
-       functional; 
-       representation=OrbitalSubspace(), 
-       U0=nothing, 
-       tol=1e-6, 
-       maxiter=1000, 
-       callback=nothing
-   )
+    rotate(basis, ψ, functional; representation=OrbitalSubspace(), U0=nothing, tol=1e-6,
+           maxiter=1000, callback=nothing)
 
-Find the unitary rotation of the selected orbitals `ψ` that optimize the `functional`.
+Find the unitary rotation of the orbitals `ψ` that optimizes the `functional`.
 Currently Γ-point only.
 """
 function rotate(
-    basis, 
-    ψ, 
-    functional; 
-    representation=OrbitalSubspace(), 
-    U0=nothing, 
-    tol=1e-6, 
-    maxiter=1000, 
-    callback=nothing
+    basis,
+    ψ,
+    functional;
+    representation=OrbitalSubspace(),
+    U0=nothing,
+    tol=1e-6,
+    maxiter=1000,
+    callback=nothing,
 )
     # code here
 end

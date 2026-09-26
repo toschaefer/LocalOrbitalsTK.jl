@@ -1,20 +1,24 @@
 """
-    NPL(; h=Monomial(2))
+    NPL(; h=Monomial(2), w=1.0)
 
 The Nuclear Potential Localization (NPL) functional
 
     L(U) = Σ_F w_F Σ_i h(⟨ϕ_i|σ_F|ϕ_i⟩),    ϕ_i = Σ_j U_ji ψ_j
 
-the one-body operators σ_F are the local (attractive) pseudopotentials of the atoms F,
-hence ⟨ϕ_i|σ_F|ϕ_i⟩ < 0 and h must be defined for negative arguments. 
+The one-body operators σ_F are the local (attractive) pseudopotentials of the atoms F,
+hence ⟨ϕ_i|σ_F|ϕ_i⟩ < 0 and `h` must be defined for negative arguments.
+
+The weights `w` are either one number for all atoms or a vector with one weight per atom, in
+the order of `basis.model.atoms`. A weight of zero excludes the atom from the functional.
 """
-@kwdef struct NPL{H} <: OneBodyFunctional
+@kwdef struct NPL{H,TW} <: OneBodyFunctional
     h::H = Monomial(2)
+    w::TW = 1.0
 end
 
 
-function one_body_operators(::NPL, basis, ::FourierSpace)
-    # code here 
+function one_body_operators(::NPL, basis, ::FourierSpace, Gs)
+    # code here
 end
 
 
@@ -22,9 +26,9 @@ end
 # Local pseudopotential of each atom in Fourier space, evaluated at the G vectors `Gs`
 # (fractional coordinates). Returns one coefficient vector per atom, ordered like `Gs`.
 #
-# Uses the factorization v_A(G) = v̂_A(|G|) * cis2pi(-G⋅R_A) / sqrt(Ω) into a radial form factor
-# and a structure factor. Evaluating v̂ is a radial quadrature, so it is done once per distinct
-# |G| and element instead of once per (G, atom) pair.
+# Uses the factorization v_A(G) = v̂_A(|G|) * cis2pi(-G⋅R_A) / sqrt(Ω) into a radial form
+# factor and a structure factor. Evaluating v̂ is a radial quadrature, so it is done once per
+# distinct |G| and element instead of once per (G, atom) pair.
 function atom_local_potentials_fourier(basis, Gs)
     model = basis.model
     Ω = model.unit_cell_volume

@@ -24,24 +24,24 @@ struct Monomial
     p::Int
 end
 (h::Monomial)(x) = x^h.p
-derivative(h::Monomial, x) = h.p * x^(h.p-1)
-taylor_degree(h::Monomial) = h.p 
+derivative(h::Monomial, x) = h.p * x^(h.p - 1)
+taylor_degree(h::Monomial) = h.p
 
 
 """
-    CustomFunction(h, dh, taylor_degree)
+    CustomFunction(; h, dh, taylor_degree)
 
-A user-defined scalar function `h` with its derivative `dh`, and maximum degree for line
-search algorithms `taylor_degree`.
+A user-defined scalar function `h` with its derivative `dh` and the degree `taylor_degree`
+used by the line search of the optimizer.
 
-`taylor_degree` is required because optimizers needs it and it cannot be derived from `h`.
-Typically, along a search direction loss functions oscillates, and the line search samples it 
-inside a window of width inversely proportional to the `taylor_degree`. For a polynomial of degree 
+`taylor_degree` is required because the optimizer needs it and it cannot be derived from
+`h`. Along a search direction the loss oscillates, and the line search samples it inside a
+window whose width is inversely proportional to `taylor_degree`. For a polynomial of degree
 k, `taylor_degree = k` is exact and the window is guaranteed to contain the first maximum.
-For any other `h` there is no exact value: too large a degree makes the window too narrow, so 
-the maximum can lie outside it and the optimization stops early; too small a degree makes the
-window too wide and costs iterations. Use the degree of a polynomial that approximates `h` well
-over the range; 2 is a reasonable start for a smooth `h`.
+For any other `h` there is no exact value: too large a degree makes the window too narrow,
+so the maximum can lie outside it and the optimization stops early; too small a degree makes
+the window too wide and costs iterations. Use the degree of a polynomial that approximates
+`h` well over the relevant range; 2 is a reasonable start for a smooth `h`.
 """
 @kwdef struct CustomFunction{H,DH}
     h::H
